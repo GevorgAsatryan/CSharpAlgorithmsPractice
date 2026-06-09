@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp17
+﻿using System.Linq;
+
+namespace ConsoleApp17
 {
     internal class Program
     {
@@ -50,7 +52,8 @@
 
             //Task 10
 
-
+            string substring = "abccba";
+            Console.WriteLine(GetNumberOfLongestSubstring(substring));
         }
 
         //Task 1
@@ -275,6 +278,26 @@
         }
 
         //Task 10
+        //Longest Substring Without Repeating Characters
 
+        public static int GetNumberOfLongestSubstring(string substring)
+        {
+            Dictionary<char, int> pairs = new Dictionary<char, int>();
+            int count = 0;
+            int left = 0;
+
+            for(int right = 0; right < substring.Length; right++)
+            {
+                if (pairs.ContainsKey(substring[right]) && pairs[substring[right]] >= left)
+                {
+                    left = pairs[substring[right]] + 1;
+                }
+
+                pairs[substring[right]] = right;
+                count = Math.Max(count, right - left + 1);
+            }
+            return count;
+        }
     }
+
 }
