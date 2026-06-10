@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace ConsoleApp17
+﻿namespace ConsoleApp17
 {
     internal class Program
     {
@@ -36,24 +34,28 @@ namespace ConsoleApp17
 
             //Task 7
 
-            //int[] numbers4 = { 1, 3, 5, 2, 7, 6, 4 };
-            //Console.WriteLine(FindTarget(numbers4, 2));
-
-            //Task 8
-
             //int[] numbers5 = { 1, 2, 3, 4, 5 };
             //Console.WriteLine(BinarySearch(new int[]{ 1, 2, 3, 4, 5 }, 5));
 
-            //Task 9
+            //Task 8
 
             //string parantheses = "()({[()]}[{}])";
             //Console.WriteLine(ValidateParentheses(parantheses));
             //Console.WriteLine(ValidateParentheses2(parantheses));
 
+            //Task 9
+
+            //string substring = "abccba";
+            //Console.WriteLine(GetNumberOfLongestSubstring(substring));
+
             //Task 10
 
-            string substring = "abccba";
-            Console.WriteLine(GetNumberOfLongestSubstring(substring));
+            int[][] intervals = [[1, 2], [2, 3], [3, 4]];
+
+            foreach(var i in MergeIntervals(intervals))
+            {
+                Console.WriteLine($"[{i[0]}, {i[1]}]");
+            }
         }
 
         //Task 1
@@ -169,22 +171,6 @@ namespace ConsoleApp17
         }
 
         //Task 7
-        //Find a Target in an Unsorted Array (after sorting)
-
-        public static int FindTarget(int[] array, int target)
-        {
-            Array.Sort(array);
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == target)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        //Task 8
         //Binary Search
 
         public static int BinarySearch(int[] array, int target)
@@ -211,7 +197,7 @@ namespace ConsoleApp17
             return -1;
         }
 
-        //Task 9
+        //Task 8
         //Valid Parentheses
 
         //Version 1
@@ -277,7 +263,7 @@ namespace ConsoleApp17
             return opening.Count == 0;
         }
 
-        //Task 10
+        //Task 9
         //Longest Substring Without Repeating Characters
 
         public static int GetNumberOfLongestSubstring(string substring)
@@ -297,6 +283,38 @@ namespace ConsoleApp17
                 count = Math.Max(count, right - left + 1);
             }
             return count;
+        }
+
+        //Task 10
+        //Merge Intervals
+
+        public static int[][] MergeIntervals(int[][] intervals)
+        {
+            var result = new List<int[]>();
+
+            if(intervals == null || intervals.Length == 0)
+            {
+                return [];
+            }
+
+            Array.Sort(intervals, (a ,b) => a[0].CompareTo(b[0]));
+            int[] current = intervals[0];
+
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                if (current[1] >= intervals[i][0])
+                {
+                    current[1] = Math.Max(current[1], intervals[i][1]);
+                }
+                else
+                {
+                    result.Add(current);
+                    current = intervals[i];
+                }
+            }
+            result.Add(current);
+
+            return result.ToArray();
         }
     }
 
