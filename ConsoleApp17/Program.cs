@@ -1,4 +1,7 @@
-﻿namespace ConsoleApp17
+﻿using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace ConsoleApp17
 {
     internal class Program
     {
@@ -23,7 +26,7 @@
 
             //Task 5
             //int[] numbers2 = { 1, 7, 3, 4, 6, 2, 6, 7 };
-            //foreach(var duplicate in Duplicates(numbers2))
+            //foreach (var duplicate in GetDuplicates(numbers2))
             //{
             //    Console.WriteLine(duplicate);
             //}
@@ -50,12 +53,50 @@
 
             //Task 10
 
-            int[][] intervals = [[1, 2], [2, 3], [3, 4]];
+            //int[][] intervals = [[1, 2], [2, 3], [3, 4]];
 
-            foreach(var i in MergeIntervals(intervals))
+            //foreach(var i in MergeIntervals(intervals))
+            //{
+            //    Console.WriteLine($"[{i[0]}, {i[1]}]");
+            //}
+
+            //Get Removable Indices
+
+            //string str1 = "aaaab";
+            //string str2 = "aaaa";
+
+            //foreach(var a in GetRemovableIndices(str1, str2))
+            //{
+            //    Console.WriteLine(a);
+            //}
+
+            //Console.WriteLine(Collatz(134379));
+            //for (int i = 134378; i <= 140000; i++)
+            //{
+            //    bool result = Collatz(i);
+
+            //    if (result)
+            //        Console.WriteLine(i + ": true");
+            //    else
+            //        throw new Exception($"{i}");
+            //}
+
+            //Quick Sort
+
+            long startMemory = GC.GetAllocatedBytesForCurrentThread();
+
+            int[] numbers = new int[] {0, 2, 5, 1, 6, 3, 4, 10, 2, 3, 5, 4, 8 };
+            //GfG.quickSort(numbers, 0, numbers.Length - 1);
+
+            numbers.MergeSort();
+            //numbers = numbers.QuickSort();
+            foreach (var number in numbers)
             {
-                Console.WriteLine($"[{i[0]}, {i[1]}]");
-            }
+                Console.WriteLine(number);
+            };
+            long auxiliarySpaceUsed = GC.GetAllocatedBytesForCurrentThread() - startMemory;
+
+            Console.WriteLine($"Space used: {auxiliarySpaceUsed} bytes");
         }
 
         //Task 1
@@ -64,9 +105,9 @@
         public static int LargestNumber(int[] numbers)
         {
             int max = 0;
-            foreach(var number in numbers)
+            foreach (var number in numbers)
             {
-                if(number > max)
+                if (number > max)
                 {
                     max = number;
                 }
@@ -202,6 +243,9 @@
 
         //Version 1
 
+        //irakanacnel quicksort algoritmy
+        //yndunum e zangvac ev elementnery dasavorum ajman kargov
+
         public static bool ValidateParentheses(string parentheses)
         {
             Stack<char> openingParentheses = new Stack<char>();
@@ -315,6 +359,70 @@
             result.Add(current);
 
             return result.ToArray();
+        }
+
+        //Get Removable Indices
+
+        public static List<int> GetRemovableIndices(string str1, string str2)
+        {
+            var result = new List<int>();
+            var sb = new StringBuilder();
+
+            if (str1.Length != str2.Length + 1)
+            {
+                return new List<int> { -1 };
+            }
+            for(int i = 0; i < str1.Length; i++)
+            {
+                for (int j = 0; j < str1.Length; j++)
+                {
+                    if (j != i)
+                    {
+                        sb.Append(str1[j]);
+                    }
+                }
+                if (str2 == sb.ToString())
+                {
+                    result.Add(i);
+                }
+                sb.Clear();
+            }
+           
+            return result;
+        }
+
+        public static int[] GetDuplicates(int[] numbers)
+        {
+            List<int> duplicates = new List<int>();
+            HashSet<int> seen = new HashSet<int>();
+            for(int i = 0; i < numbers.Length; i++)
+            {
+                if (!seen.Add(numbers[i]))
+                {
+                    duplicates.Add(numbers[i]);
+                }
+            }
+            int[] result = duplicates.ToArray();
+            return result;
+        }
+
+        static bool Collatz(int n)
+        {
+            while (n != 1)
+            {
+                if (n % 2 == 0)
+                {
+                    n /= 2;
+                    Console.WriteLine("even");
+                }
+                else
+                {
+                    n = 3 * n + 1;
+                    Console.WriteLine("odd");
+                }
+            }
+
+            return true;
         }
     }
 
