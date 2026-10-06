@@ -83,21 +83,77 @@ namespace ConsoleApp17
 
             //Quick Sort
 
-            long startMemory = GC.GetAllocatedBytesForCurrentThread();
+            //long startMemory = GC.GetAllocatedBytesForCurrentThread();
 
-            int[] numbers = new int[] {0, 2, 5, 1, 6, 3, 4, 10, 2, 3, 5, 4, 8 };
-            //GfG.quickSort(numbers, 0, numbers.Length - 1);
+            //int[] numbers = new int[] {0, 2, 5, 1, 6, 3, 4, 10, 2, 3, 5, 4, 8 };
+            ////GfG.quickSort(numbers, 0, numbers.Length - 1);
 
-            numbers.MergeSort();
-            //numbers = numbers.QuickSort();
-            foreach (var number in numbers)
-            {
-                Console.WriteLine(number);
-            };
-            long auxiliarySpaceUsed = GC.GetAllocatedBytesForCurrentThread() - startMemory;
+            //numbers.MergeSort();
+            ////numbers = numbers.QuickSort();
+            //foreach (var number in numbers)
+            //{
+            //    Console.WriteLine(number);
+            //};
+            //long auxiliarySpaceUsed = GC.GetAllocatedBytesForCurrentThread() - startMemory;
 
-            Console.WriteLine($"Space used: {auxiliarySpaceUsed} bytes");
+            //Console.WriteLine($"Space used: {auxiliarySpaceUsed} bytes");
+
+            //IsPrimeNumber 
+
+            //    int a = 0;
+            //    do
+            //    {
+            //        a = int.Parse(Console.ReadLine());
+            //        Console.WriteLine(IsPrimeNumber(a));
+            //    }
+            //    while (a != 0);
+
+            //S s = new S();
+            //s.CallSingleton();
+            //s.CallSingleton();
+            //s.CallSingleton();
+            //s.CallSingleton();
+
+            //string a = "";
+            //a.Equals("");
+
+
+            ValueObject vObj1 = new ValueObject(5, 5);
+            ValueObject vObj2 = new ValueObject(5, 5);
+
+            bool isEqual = vObj1.Equals(vObj2);
+            bool isEqual2 = vObj1 == vObj2;
+
+            Console.WriteLine(isEqual);
+            Console.WriteLine(isEqual2);
+
+
+            //int i = 5;       
+            //long l = i;       
+            //Single s = i;
+            //int a = (int)7.5;
+
+            //Console.WriteLine(a);
+            //Console.WriteLine(i);
+            //Console.WriteLine(l);
+            //Console.WriteLine(s);
+
+            //bool found = false;    // Generated code sets found to 0  
+            //int x = 100 + 20 + 3;   // Generated code sets x to 123  
+            //string b = "a " + "bc";   // Generated code sets s to "a bc"
+
+            //int y = 4;
+            //decimal w = y;
+            //double o = y;
+            //float f = y;
+            //int q = (int)f;
+            //int t = (int)o;
+            //int e = (int)w;
+            //double o2 = (double)w;
+            //decimal w2 = (decimal)o;
         }
+
+
 
         //Task 1
         //Find the Largest Number
@@ -424,6 +480,31 @@ namespace ConsoleApp17
 
             return true;
         }
+
+        public static bool IsPrimeNumber(int number)
+        {
+            if(number <= 0)
+            {
+                return false;
+            }
+            else if (number == 2)
+            {
+                return true;
+            }
+            if (number % 2 == 0)
+            {
+                return false;
+            }
+            for (int i = 3; i < Math.Sqrt(number); i += 2)
+            {
+                if (number % i == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
 }
+
