@@ -20,9 +20,9 @@ namespace ConsoleApp17
         }
         public override bool Equals(object? obj)
         {
-            ValueObject vObj = obj as ValueObject;
+            ValueObject? vObj = obj as ValueObject;
 
-            if (vObj == null)
+            if (vObj is null)
             {
                 return false;
             }
